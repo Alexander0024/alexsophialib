@@ -1,7 +1,6 @@
 /**
  * CopyRight (C) 1989-2989 <Alexander>
  * Copy Right Author     : Alexander_LWZ
- * Package Space         : com.alexsophia.alexsophialib.util
  * JDK Version Used      : jdk1.7.0_45
  * Comments              : Utilities to simplify creation by using type argument inference.
  * Version               : 1.0.0
