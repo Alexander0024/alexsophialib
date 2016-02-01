@@ -76,7 +76,7 @@ public class EncodingUtils {
      * @param data a byte[] to convert to Hex characters
      * @return A char[] containing hexadecimal characters
      */
-    protected static char[] encodeHex(final byte[] data) {
+    private static char[] encodeHex(final byte[] data) {
         final int l = data.length;
         final char[] out = new char[l << 1];
         // two characters form the hex value.
