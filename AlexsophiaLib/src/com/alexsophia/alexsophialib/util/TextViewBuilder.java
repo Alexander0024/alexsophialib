@@ -30,81 +30,164 @@ import android.text.style.URLSpan;
 import android.text.style.UnderlineSpan;
 import android.widget.TextView;
 
-public class TextViewUtils {
+public class TextViewBuilder {
 	private Context context;
 	private SpannableString msp;
-	
-	public TextViewUtils(Context context) {
-		this.context = context;
+	private int flags = Spanned.SPAN_EXCLUSIVE_EXCLUSIVE;
+
+	public TextViewBuilder() {
+		
 	}
 	
+	public TextViewBuilder(Context context) {
+		this.context = context;
+	}
+
 	/**
-	 * 设置字体
+	 * 设置内容
+	 * 
 	 * @param text
 	 * @return
 	 */
-	public TextViewUtils setText(String text) {
+	public TextViewBuilder setText(String text) {
 		msp = new SpannableString(text);
 		return this;
 	}
 	
+	public SpannableString build() {
+		return msp;
+	}
+
 	/**
-	 * 设置字体
+	 * 设置字体样式
+	 * 
 	 * @param family
 	 * @param start
 	 * @param end
 	 * @return
 	 */
-	public TextViewUtils setTextFamily(String family, int start, int end) {
-		msp.setSpan(new TypefaceSpan(family), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+	public TextViewBuilder setTextFamily(String family, int start, int end) {
+		msp.setSpan(new TypefaceSpan(family), start, end, flags);
 		return this;
 	}
 
-	public void allDemo() {
-		//mTextView = (TextView)findViewById(R.id.myTextView);
-		 
-        //创建一个 SpannableString对象
+	/**
+	 * 设置字体大小 - 像素/dp数值设置
+	 * 
+	 * @param size
+	 * @param isDip
+	 * @param start
+	 * @param end
+	 * @return
+	 */
+	public TextViewBuilder setTextSize(int size, boolean isDip, int start, int end) {
+		msp.setSpan(new AbsoluteSizeSpan(size, isDip), start, end, flags);
+		return this;
+	}
+
+	/**
+	 * 设置字体大小 - 原始大小的比例设置
+	 * 
+	 * @param proportion
+	 * @param start
+	 * @param end
+	 * @return
+	 */
+	public TextViewBuilder setTextSize(float proportion, int start, int end) {
+		msp.setSpan(new RelativeSizeSpan(proportion), start, end, flags);
+		return this;
+	}
+
+	/**
+	 * 设置字体颜色
+	 * 
+	 * @param color
+	 * @param start
+	 * @param end
+	 * @return
+	 */
+	public TextViewBuilder setForegroundColor(int color, int start, int end) {
+		msp.setSpan(new ForegroundColorSpan(color), start, end, flags);
+		return this;
+	}
+
+	/**
+	 * 设置背景颜色
+	 * 
+	 * @param color
+	 * @param start
+	 * @param end
+	 * @return
+	 */
+	public TextViewBuilder setBackgroundColor(int color, int start, int end) {
+		msp.setSpan(new BackgroundColorSpan(color), start, end, flags);
+		return this;
+	}
+
+	/**
+	 * 设置字体样式
+	 * 
+	 * @param style
+	 *            android.graphics.Typeface.BOLD 粗体；<br>
+	 *            android.graphics.Typeface.ITALIC 斜体；<br>
+	 *            android.graphics.Typeface.BOLD_ITALIC 粗斜体；
+	 * @param start
+	 * @param end
+	 * @return
+	 */
+	public TextViewBuilder setStyle(int style, int start, int end) {
+		msp.setSpan(new StyleSpan(style), start, end, flags);
+		return this;
+	}
+	
+	/**
+	 * 设置下划线
+	 * @param start
+	 * @param end
+	 * @return
+	 */
+	public TextViewBuilder setUnderline(int start, int end) {
+		msp.setSpan(new UnderlineSpan(), start, end, flags);
+		return this;
+	}
+	
+	/**
+	 * 设置删除线
+	 * @param start
+	 * @param end
+	 * @return
+	 */
+	public TextViewBuilder setStrikethrough(int start, int end) {
+		msp.setSpan(new StrikethroughSpan(), start, end, flags);
+		return this;
+	}
+	
+	/**
+	 * 设置下标
+	 * @param start
+	 * @param end
+	 * @return
+	 */
+	public TextViewBuilder setSubscript(int start, int end) {
+		msp.setSpan(new SubscriptSpan(), start, end, flags);
+		return this;
+	}
+	
+	/**
+	 * 设置上标
+	 * @param start
+	 * @param end
+	 * @return
+	 */
+	public TextViewBuilder setSuperscript(int start, int end) {
+		msp.setSpan(new SuperscriptSpan(), start, end, flags);
+		return this;
+	}
+	
+	@SuppressWarnings("unused")
+	private void demo() {
         msp = new SpannableString("字体测试字体大小一半两倍前景色背景色正常粗体斜体粗斜体下划线删除线x1x2电话邮件网站短信彩信地图X轴综合/bot"); 
- 
-        //设置字体(default,default-bold,monospace,serif,sans-serif)
-        msp.setSpan(new TypefaceSpan("monospace"), 0, 2, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        msp.setSpan(new TypefaceSpan("serif"), 2, 4, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
- 
-        //设置字体大小（绝对值,单位：像素）
-        msp.setSpan(new AbsoluteSizeSpan(20), 4, 6, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        //第二个参数boolean dip，如果为true，表示前面的字体大小单位为dip，否则为像素，同上。
-        msp.setSpan(new AbsoluteSizeSpan(20,true), 6, 8, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);  
- 
-        //设置字体大小（相对值,单位：像素） 参数表示为默认字体大小的多少倍
-        //0.5f表示默认字体大小的一半
-        msp.setSpan(new RelativeSizeSpan(0.5f), 8, 10, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);  
-        //2.0f表示默认字体大小的两倍
-        msp.setSpan(new RelativeSizeSpan(2.0f), 10, 12, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);  
- 
-        //设置字体前景色为洋红色
-        msp.setSpan(new ForegroundColorSpan(Color.MAGENTA), 12, 15, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);  
- 
-        //设置字体背景色为青色
-        msp.setSpan(new BackgroundColorSpan(Color.CYAN), 15, 18, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE); 
- 
-        //设置字体样式正常
-        msp.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 18, 20, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);  
-        //设置字体样式粗体
-        msp.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 20, 22, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);  
-        //设置字体样式斜体
-        msp.setSpan(new StyleSpan(android.graphics.Typeface.ITALIC), 22, 24, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);  
-        //设置字体样式粗斜体
-        msp.setSpan(new StyleSpan(android.graphics.Typeface.BOLD_ITALIC), 24, 27, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);  
- 
-        //设置下划线
-        msp.setSpan(new UnderlineSpan(), 27, 30, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
- 
-        //设置删除线
-        msp.setSpan(new StrikethroughSpan(), 30, 33, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
- 
-        //设置上下标
-        msp.setSpan(new SubscriptSpan(), 34, 35, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);     
-        msp.setSpan(new SuperscriptSpan(), 36, 37, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);              
+
  
         //超级链接（需要添加setMovementMethod方法附加响应）
         //电话
