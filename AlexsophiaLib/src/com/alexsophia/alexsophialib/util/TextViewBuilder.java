@@ -1,34 +1,21 @@
 package com.alexsophia.alexsophialib.util;
 
-import java.io.IOException;
-
-import org.xmlpull.v1.XmlPullParserException;
-
-import android.R.integer;
 import android.content.Context;
 import android.content.res.ColorStateList;
-import android.content.res.XmlResourceParser;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.text.SpannableString;
 import android.text.Spanned;
-import android.text.method.LinkMovementMethod;
 import android.text.style.AbsoluteSizeSpan;
 import android.text.style.BackgroundColorSpan;
-import android.text.style.BulletSpan;
 import android.text.style.ForegroundColorSpan;
-import android.text.style.ImageSpan;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.ScaleXSpan;
 import android.text.style.StrikethroughSpan;
 import android.text.style.StyleSpan;
 import android.text.style.SubscriptSpan;
 import android.text.style.SuperscriptSpan;
-import android.text.style.TextAppearanceSpan;
 import android.text.style.TypefaceSpan;
 import android.text.style.URLSpan;
 import android.text.style.UnderlineSpan;
-import android.widget.TextView;
 
 public class TextViewBuilder {
 	private Context context;
