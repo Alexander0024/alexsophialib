@@ -18,6 +18,7 @@ import android.text.style.URLSpan;
 import android.text.style.UnderlineSpan;
 
 public class TextViewBuilder {
+	@SuppressWarnings("unused")
 	private Context context;
 	private SpannableString msp;
 	private int flags = Spanned.SPAN_EXCLUSIVE_EXCLUSIVE;
@@ -31,7 +32,7 @@ public class TextViewBuilder {
 	}
 
 	/**
-	 * 设置内容
+	 * 设置内容，必须首先调用，且只能调用一次。
 	 * 
 	 * @param text
 	 * @return
@@ -41,6 +42,10 @@ public class TextViewBuilder {
 		return this;
 	}
 	
+	/**
+	 * 完成TextView的设置，返回后供setText调用。
+	 * @return
+	 */
 	public SpannableString build() {
 		return msp;
 	}
@@ -62,7 +67,7 @@ public class TextViewBuilder {
 	 * 设置字体大小 - 像素/dp数值设置
 	 * 
 	 * @param size
-	 * @param isDip
+	 * @param isDip 标示size的单位 true为dp数值，false为像素数值。
 	 * @param start
 	 * @param end
 	 * @return
